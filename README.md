@@ -15,7 +15,7 @@
 | 0x24 | Channel 2 UI Count Register | Defines number of UI the pulse is high in each frame |
 | 0x2C | Channel 3 UI Count Register | Defines number of UI the pulse is high in each frame |
 
-### Transmit Byte Register
+### Control Register
 | 31:20 | 19:16 | 15:8 | 7:4 | 3:0 |
 | - | - | - | - | - |
 | Reserved | Channel Active | Reserved | IOB | Channel Enable |
