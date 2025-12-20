@@ -1,3 +1,19 @@
+# 4 Channel RC Servo Motor PWM Controller
+
+## Description
+This is a 4 Channel RC Servo PWM Controller with an AXI4-Lite processor interface implemented in RTL. This RC Servo PWM Controller is packaged as an AMD/Xilinx IP Core. Multiple instances can be instanciated to support more channels.
+
+## But my microcontroller already has a PWM generator
+True, but I doubt the microcontroller has 8 or 12 PWM generators. You could use the microcontroller's existing PWM generators for a couple of channels and implement the remaining channels using timers and some software code. But that will likely introduce some amount of jitter. In addition the hardware generated PWM pulses and will be slightly different than the software generated PWM pulses. You could decide this is good enough for your application. But by using this IP core, all of the generated pulses will be identical and free of jitter. To me this is important because I feel that your finished system is only as good as the foundation it's built on.
+
+## But AMD/Xilinx has a AXI Timer/Counter core available free of charge that can generate PWM pulses. Why create another one?
+The [AMD/Xilinx Timer / Counter IP Core](https://docs.amd.com/r/en-US/pg079-axi-timer/Introduction) is a general purpose IP Core. It is an excelent and mature core. Depending on your design goals, this could be a more appropirate IP Core to use. The drawback is that being a general purpose IP Core vs. an IP Core specifically implemented to control RC Servo Motors, the AMD/Xilinx core will use more FPGA resources.
+
+## IP Core Implemented with how the flight controller firmware will use this core
+Typically the flight controller firmware will want to set a value of 1mS as a minimum value, 1.5mS as a middle value and 2mS as the maximum value. The register interface allows the firmware to directly write these time values without any translation that might be required when using a general purpose IP Core
+
+# Theory of Operation
+This IP Core operates in terms of Unit Interval or abbreviated as UI. This is what allows this core to be flight firmware friendly.
 
 
 | Offset  | Name | Description |
